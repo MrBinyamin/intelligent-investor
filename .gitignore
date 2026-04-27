@@ -1,0 +1,12 @@
+# Node — never commit installed packages
+node_modules/
+# Docker logs
+*.log
+# Environment variables — NEVER commit secrets
+.env
+.env.*
+# Database volume data
+postgres_data/
+# OS files
+.DS_Store
+Thumbs.db
