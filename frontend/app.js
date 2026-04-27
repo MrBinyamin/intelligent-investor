@@ -14,4 +14,5 @@ sync function calculate() {
  const data = await response.json();
  document.getElementById('output').textContent =
  JSON.stringify(data, null, 2);
+ echo "// CI trigger" >> backend/src/app.js
 }
