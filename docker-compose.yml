@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  # ── Service 1: PostgreSQL Database ────────────────────
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: investor_db
+    ports:
+      - '5432:5432'
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  # ── Service 2: Node.js Backend ─────────────────────────
+  backend:
+    build: ./backend
+    environment:
+      DB_HOST: db
+      DB_PORT: '5432'
+      DB_NAME: investor_db
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      PORT: '5000'
+    ports:
+      - '3001:5000'
+    depends_on:
+      - db
+
+  # ── Service 3: Static Frontend (nginx) ─────────────────
+  frontend:
+    image: nginx:alpine
+    ports:
+      - '8080:80'
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+    depends_on:
+      - backend
+
+# ── Named Volume ───────────────────────────────────────────
+volumes:
+  db_data:

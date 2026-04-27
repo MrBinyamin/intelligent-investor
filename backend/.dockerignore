@@ -1,0 +1,15 @@
+# Never include dependencies — Docker installs them fresh
+node_modules
+npm-debug.log
+.npm
+# No test code in production images
+tests/
+*.test.js
+# No secrets
+.env
+.env.*
+# No version control files
+.git
+.gitignore
+# No docs
+*.md
